@@ -1,0 +1,21 @@
+* {
+  font-family: 'Noto Sans', sans-serif !important;
+}
+html,
+body {
+  font-size: 10px;
+  letter-spacing: -0.5px;
+  font-family: 'Noto Sans', sans-serif !important;
+  min-width: 1900px;
+}
+body {
+  &.no-scroll {
+    overflow: hidden;
+  }
+}
+a {
+  color: inherit;
+}
+em {
+  font-style: normal;
+}
