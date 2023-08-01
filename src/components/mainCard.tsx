@@ -1,6 +1,7 @@
 import contentImg from '../assets/images/img_main_test.png'
 import storeImg from '../assets/images/img_main_store.png'
 import starIcon from '../assets/images/ic_card_star.svg'
+
 const MainCard = () => {
   return (
     <div className="cardWrapper">

@@ -2,7 +2,8 @@
 
 //components
 @import './components/header.scss';
-@import './components/mainCard.scss';
+@import '../styles/components/mainCard.scss';
+@import '../styles/components/mainLargeCard.scss';
 
 //pages
 @import './pages/main.scss';

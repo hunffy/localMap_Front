@@ -1,6 +1,7 @@
 import locationIcon from '../../assets/images/ic_header_search.svg'
 import searchIcon from '../../assets/images/ic_main_search.svg'
 import MainCard from '../../components/mainCard'
+import MainLaggeCard from '../../components/mainLargeCard'
 const Main = (): JSX.Element => {
   return (
     <div className="mainWrapper">
@@ -22,13 +23,37 @@ const Main = (): JSX.Element => {
         <div className="rightWrapper"></div>
       </section>
       <section className="mainContentWrapper">
-        <div className="localHotStoreWrapper">
+        <div className="StoreWrapper">
           <p className="mainTitle">주변 인기맛집(거리순으로)</p>
           <div className="storeCardList">
             <MainCard />
             <MainCard />
             <MainCard />
             <MainCard />
+          </div>
+          <div className="seeMoreButton">
+            <p>더보기</p>
+          </div>
+        </div>
+        <div className="StoreWrapper">
+          <p className="mainTitle">이벤트 중인 맛집</p>
+          <div className="storeCardList">
+            <MainCard />
+            <MainCard />
+            <MainCard />
+            <MainCard />
+          </div>
+          <div className="seeMoreButton">
+            <p>더보기</p>
+          </div>
+        </div>
+        <div className="StoreWrapper">
+          <p className="mainTitle">에디터 특집</p>
+          <div className="editCardList">
+            <MainLaggeCard />
+            <MainLaggeCard />
+            <MainLaggeCard />
+            <MainLaggeCard />
           </div>
           <div className="seeMoreButton">
             <p>더보기</p>
