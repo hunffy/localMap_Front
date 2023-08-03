@@ -1,23 +1,25 @@
-import contentImg from '../assets/images/img_main_test.png'
 import storeImg from '../assets/images/img_main_store.png'
 import starIcon from '../assets/images/ic_card_star.svg'
+import { storeInfoDTO } from '../types/main/mainTypes'
 
-const MainCard = () => {
+const MainCard = ({ params }: { params: storeInfoDTO }) => {
   return (
     <div className="cardWrapper">
-      <img className="contentImage" src={contentImg} />
+      <img className="contentImage" src={params.most_recent_photo_url} />
       <div className="storeInfoWrapper">
         <img className="storeIcon" src={storeImg} />
         <div className="info">
-          <p className="title">음식점이름</p>
+          <p className="title">{params.name}</p>
           <div className="interestInfo">
             <img className="starIcon" src={starIcon} />
-            <p className="count">46</p>
+            <p className="count">{params.view}</p>
           </div>
         </div>
       </div>
       <div className="locationFood">
-        <p>위치 - 음식종류표시</p>
+        <p>
+          {params.address} - {params.category_name}
+        </p>
       </div>
     </div>
   )
