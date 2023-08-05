@@ -1,11 +1,34 @@
+import { ChangeEvent, useState } from 'react'
+
 const Login = (): JSX.Element => {
+  const [emailValue, setEmail] = useState('')
+  const [pwValue, setPw] = useState('')
+
+  const saveUserEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value)
+  }
+
+  const saveUserPw = (event: ChangeEvent<HTMLInputElement>) => {
+    setPw(event.target.value)
+  }
+
   return (
     <div className="loginWrapper">
       <div className="title">
         <p>로그인 및 회원가입</p>
       </div>
-      <input type="text" placeholder="이메일" />
-      <input type="text" placeholder="비밀번호" />
+      <input
+        type="text"
+        placeholder="이메일"
+        value={emailValue}
+        onChange={saveUserEmail}
+      />
+      <input
+        type="password"
+        placeholder="비밀번호"
+        value={pwValue}
+        onChange={saveUserPw}
+      />
       <p className="findPW">비밀번호 찾기</p>
       <div className="btnWrapper">
         <div className="basicBtn">

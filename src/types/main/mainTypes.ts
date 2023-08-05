@@ -7,6 +7,12 @@ export interface getStroeParams {
   offset: number
 }
 
+export interface getLocationInfoParams {
+  latitude: number
+  longitude: number
+  radius: number
+}
+
 export interface storeInfoDTO {
   category_name: string
   rest_id: string
