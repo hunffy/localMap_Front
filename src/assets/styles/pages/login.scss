@@ -1,0 +1,113 @@
+.loginWrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+  position: relative;
+
+  .title {
+    display: flex;
+    width: 50rem;
+    justify-content: center;
+    align-items: flex-start;
+    border-bottom: 1px solid #000;
+
+    p {
+      color: #000;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+
+  input {
+    margin-top: 2rem;
+    border-radius: 5px;
+    border: 1px solid #8f9698;
+    display: flex;
+    width: 45rem;
+    height: 5rem;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 24px;
+    font-style: normal;
+    padding-left: 2rem;
+  }
+
+  .findPW {
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+  }
+
+  .btnWrapper {
+    display: flex;
+    width: 47rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-bottom: 1px solid #000;
+    margin-bottom: 2rem;
+    .basicBtn {
+      display: flex;
+      width: 47rem;
+      padding: 16px 0px 15px 0px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      background: #ffae06;
+      margin-bottom: 2rem;
+      cursor: pointer;
+      p {
+        color: #fff;
+        font-size: 24px;
+        margin: 0;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+    }
+  }
+
+  .joinWrapper {
+    display: flex;
+    width: 47rem;
+    height: 20rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid #8f9698;
+    padding: 4rem 1rem 0rem 1rem;
+    margin-bottom: 5rem;
+    p {
+      margin: 0;
+      color: #000;
+      text-align: center;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+    .joinBtn {
+      display: flex;
+      width: 15.5625rem;
+      height: 2.75rem;
+      padding: 8px 78px 7px 78px;
+      margin-top: 3rem;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      border-radius: 5px;
+      border: 1px solid #8f9698;
+    }
+  }
+}

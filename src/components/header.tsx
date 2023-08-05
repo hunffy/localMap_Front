@@ -1,8 +1,15 @@
 import logo from '../logo.svg'
 import locationIcon from '../assets/images/ic_header_location.svg'
 import userBtnIcon from '../assets/images/ic_header_userbtn.svg'
+import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
+  const navigate = useNavigate()
+
+  const goLogin = () => {
+    navigate('/login')
+  }
+
   return (
     <div className="headerWrapper">
       <div className="logoWrapper">
@@ -18,7 +25,7 @@ const Header = () => {
           <img src={userBtnIcon} />
           <p>MyPage</p>
         </div>
-        <div className="headerButton">
+        <div className="headerButton" onClick={goLogin}>
           <img src={userBtnIcon} />
           <p>Login</p>
         </div>
