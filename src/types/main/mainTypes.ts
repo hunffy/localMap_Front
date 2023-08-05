@@ -3,6 +3,8 @@ export interface getStroeParams {
   sort_by: string
   latitude: number | null
   longitude: number | null
+  limit: number
+  offset: number
 }
 
 export interface storeInfoDTO {
@@ -13,4 +15,11 @@ export interface storeInfoDTO {
   most_recent_photo_url: string
   average_rating: number
   view: number
+}
+
+export interface storeInfoVO {
+  count: number
+  next: string
+  previous: string
+  results: Array<storeInfoDTO>
 }

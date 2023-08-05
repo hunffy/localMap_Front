@@ -16,6 +16,7 @@ export const getEventLocalStore = async (params: getStroeParams) => {
   const url = BaseUrl + '/restaurant/get_event_rest'
   try {
     const response = await axios.get(url, { params })
+    console.log(response.data)
     return response.data
   } catch (error) {
     alert('위치 정보를 확인해주세요')

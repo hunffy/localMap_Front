@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import locationIcon from '../../assets/images/ic_header_search.svg'
 import searchIcon from '../../assets/images/ic_main_search.svg'
 import MainCard from '../../components/mainCard'
@@ -6,8 +5,9 @@ import MainLaggeCard from '../../components/mainLargeCard'
 import { getEventLocalStore, getNearLocalStore } from '../../apis/mainApi'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../reducers'
-import { storeInfoDTO } from '../../types/main/mainTypes'
+import { storeInfoDTO, storeInfoVO } from '../../types/main/mainTypes'
 import { QueryKey, UseQueryOptions, useQueries } from 'react-query'
+import Spinner from '../../assets/images/spinner.gif'
 
 const Main = (): JSX.Element => {
   const currentLocation = useSelector(
@@ -21,7 +21,9 @@ const Main = (): JSX.Element => {
       //latitude: currentLocation.lat,
       //longitude: currentLocation.lng
       latitude: null,
-      longitude: null
+      longitude: null,
+      limit: 4,
+      offset: 1
     })
     return data
   }
@@ -33,34 +35,28 @@ const Main = (): JSX.Element => {
       //latitude: currentLocation.lat,
       //longitude: currentLocation.lng
       latitude: null,
-      longitude: null
+      longitude: null,
+      limit: 4,
+      offset: 1
     })
     return data
   }
 
-  const queries: UseQueryOptions<
-    storeInfoDTO[],
-    Error,
-    storeInfoDTO[],
-    QueryKey
-  >[] = [
-    {
-      queryKey: ['near', 1],
-      queryFn: fetchAndSetNearStore,
-      staleTime: Infinity
-    },
-    {
-      queryKey: ['event', 2],
-      queryFn: fetchAndSetEventStore,
-      staleTime: Infinity
-    }
-  ]
+  const queries: UseQueryOptions<storeInfoVO, Error, storeInfoVO, QueryKey>[] =
+    [
+      {
+        queryKey: ['near', 1],
+        queryFn: fetchAndSetNearStore,
+        staleTime: Infinity
+      },
+      {
+        queryKey: ['event', 2],
+        queryFn: fetchAndSetEventStore,
+        staleTime: Infinity
+      }
+    ]
 
   const results = useQueries(queries)
-
-  useEffect(() => {
-    console.log(results)
-  }, [])
 
   return (
     <div className="mainWrapper">
@@ -86,9 +82,9 @@ const Main = (): JSX.Element => {
           <p className="mainTitle">주변 인기맛집(거리순으로)</p>
           <div className="storeCardList">
             {results[0].isLoading ? (
-              <p>Loading!!!</p>
+              <img src={Spinner} alt="로딩중" width="50%" />
             ) : (
-              results[0].data!.map((item) => {
+              results[0].data?.results.map((item) => {
                 return <MainCard params={item as storeInfoDTO} />
               })
             )}
@@ -101,9 +97,9 @@ const Main = (): JSX.Element => {
           <p className="mainTitle">이벤트 중인 맛집</p>
           <div className="storeCardList">
             {results[1].isLoading ? (
-              <p>Loading!!!</p>
+              <img src={Spinner} alt="로딩중" width="50%" />
             ) : (
-              results[1].data!.map((item) => {
+              results[1].data?.results.map((item) => {
                 return <MainCard params={item as storeInfoDTO} />
               })
             )}
