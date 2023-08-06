@@ -3,16 +3,21 @@ import searchIcon from '../../assets/images/ic_main_search.svg'
 import MainCard from '../../components/mainCard'
 import MainLaggeCard from '../../components/mainLargeCard'
 import { getEventLocalStore, getNearLocalStore } from '../../apis/mainApi'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../reducers'
 import { storeInfoDTO, storeInfoVO } from '../../types/main/mainTypes'
 import { QueryKey, UseQueryOptions, useQueries } from 'react-query'
 import Spinner from '../../assets/images/spinner.gif'
+import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../reducers'
+import marker from '../../assets/images/ic_map_pin.png'
+import { useState } from 'react'
 
 const Main = (): JSX.Element => {
   const currentLocation = useSelector(
     (state: RootState) => state.userReducer.coordinates
   )
+
+  const [isHover, setHover] = useState(false)
 
   const fetchAndSetNearStore = async () => {
     const data = await getNearLocalStore({
@@ -58,6 +63,14 @@ const Main = (): JSX.Element => {
 
   const results = useQueries(queries)
 
+  const onMarkerHover = () => {
+    setHover(true)
+  }
+
+  const onMarkerHoverOut = () => {
+    setHover(false)
+  }
+
   return (
     <div className="mainWrapper">
       <section className="sloganSection">
@@ -75,11 +88,48 @@ const Main = (): JSX.Element => {
             </div>
           </div>
         </div>
-        <div className="rightWrapper"></div>
+        <div className="rightWrapper">
+          <Map
+            center={{ lat: currentLocation.lat, lng: currentLocation.lng }} // 지도의 중심 좌표
+            style={{ width: '51rem', height: '41.3rem' }}
+            level={3}
+          >
+            <MapMarker
+              position={{ lat: currentLocation.lat, lng: currentLocation.lng }}
+              image={{
+                src: marker,
+                size: { width: 45, height: 40 },
+                options: { offset: new kakao.maps.Point(20, 32) }
+              }}
+              title="aaaa"
+              onMouseOver={onMarkerHover}
+              onMouseOut={onMarkerHoverOut}
+              zIndex={10}
+            />
+            {isHover ? (
+              <CustomOverlayMap
+                position={{
+                  lat: currentLocation.lat,
+                  lng: currentLocation.lng
+                }}
+                yAnchor={0.8}
+                xAnchor={0.1}
+              >
+                <div className="overlayMarker">
+                  <div className="titleWrapper">
+                    <p>Here!asdfasdfasdf</p>
+                  </div>
+                </div>
+              </CustomOverlayMap>
+            ) : (
+              <div />
+            )}
+          </Map>
+        </div>
       </section>
       <section className="mainContentWrapper">
         <div className="StoreWrapper">
-          <p className="mainTitle">주변 인기맛집(거리순으로)</p>
+          <p className="mainTitle">주변 인기맛집</p>
           <div className="storeCardList">
             {results[0].isLoading ? (
               <img src={Spinner} alt="로딩중" width="50%" />

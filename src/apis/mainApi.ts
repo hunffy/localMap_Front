@@ -24,12 +24,17 @@ export const getEventLocalStore = async (params: getStroeParams) => {
 }
 
 export const getLocationInfo = async (params: getLocationInfoParams) => {
-  const url = BaseUrl + '/hjd/search'
+  const url = BaseUrl + '/hjd/search/'
   try {
-    const response = await axios.get(url, { params })
+    const response = await axios.post(url, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: params
+    })
     console.log(response.data)
     return response.data
   } catch (error) {
-    alert('위치 정보를 확인해주세요')
+    alert('헤더 오류를 확인해주세요')
   }
 }
