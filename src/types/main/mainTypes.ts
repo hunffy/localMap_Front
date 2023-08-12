@@ -29,3 +29,16 @@ export interface storeInfoVO {
   previous: string
   results: Array<storeInfoDTO>
 }
+
+export interface editorProposalVO {
+  ed_no: string
+  user: {
+    email: string
+    name: string
+  }
+  title: string
+  content: string
+  view: number
+  url: string
+  rest_id: Array<string>
+}
