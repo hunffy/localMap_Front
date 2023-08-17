@@ -21,21 +21,24 @@ export interface storeInfoDTO {
   most_recent_photo_url: string
   average_rating: number
   view: number
+  latitude: number
+  longitude: number
 }
 
-export interface storeInfoVO {
+export interface getEditorProposalParams {
+  limit: number
+  offset: number
+}
+
+export interface mainApiVO {
   count: number
   next: string
   previous: string
-  results: Array<storeInfoDTO>
+  results: Array<storeInfoDTO | editorProposalDTO>
 }
 
-export interface editorProposalVO {
+export interface editorProposalDTO {
   ed_no: string
-  user: {
-    email: string
-    name: string
-  }
   title: string
   content: string
   view: number

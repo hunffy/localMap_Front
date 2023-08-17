@@ -28,12 +28,8 @@ const useGeolocation = () => {
     })
     dispatch(
       locationSet({
-        accessToken: '',
-        refreshToken: '',
-        coordinates: {
-          lat: location.coords.latitude,
-          lng: location.coords.longitude
-        }
+        lat: location.coords.latitude,
+        lng: location.coords.longitude
       })
     )
   }

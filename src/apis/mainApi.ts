@@ -1,6 +1,10 @@
 import axios from 'axios'
 import { BaseUrl } from '../utils/axiosConfig'
-import { getLocationInfoParams, getStroeParams } from '../types/main/mainTypes'
+import {
+  getEditorProposalParams,
+  getLocationInfoParams,
+  getStroeParams
+} from '../types/main/mainTypes'
 
 export const getNearLocalStore = async (params: getStroeParams) => {
   const url = BaseUrl + '/restaurant/get_near_rest'
@@ -36,5 +40,16 @@ export const getLocationInfo = async (params: getLocationInfoParams) => {
     return response.data
   } catch (error) {
     alert('헤더 오류를 확인해주세요')
+  }
+}
+
+export const getEditorProposal = async (params: getEditorProposalParams) => {
+  const url = BaseUrl + '/editor/list'
+  try {
+    const response = await axios.get(url, { params })
+    console.log(response.data)
+    return response.data
+  } catch (error) {
+    alert('오류를 확인해주세요')
   }
 }

@@ -6,6 +6,7 @@ import { RootState } from '../reducers'
 import { useSelector } from 'react-redux'
 import { getLocationInfo } from '../apis/mainApi'
 import { useQuery } from 'react-query'
+import { UserState } from '../reducers/userReducer'
 
 const Header = () => {
   const navigate = useNavigate()
@@ -15,13 +16,13 @@ const Header = () => {
   }
 
   const currentLocation = useSelector(
-    (state: RootState) => state.userReducer.coordinates
+    (state: RootState) => state.userReducer as UserState
   )
 
   const fetchAndSetLocationInfo = async () => {
     const data = await getLocationInfo({
-      latitude: currentLocation.lat,
-      longitude: currentLocation.lng,
+      latitude: currentLocation.coordinates.lat,
+      longitude: currentLocation.coordinates.lng,
       radius: 10
     })
     return data

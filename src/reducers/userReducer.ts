@@ -1,48 +1,35 @@
-import { BaseUrl } from '../utils/axiosConfig'
-import axios from 'axios'
-
 //액션타입 생성
-const SET_USER_LOCATION = 'user/LOCATION'
+const SET_USER_LOCATION = 'user/location'
+const SET_USER_TOKENS = 'user/tokens'
 
 //액션생성함수
-export const locationSet = (user: UserState) => ({
+export const locationSet = (location: UserState['coordinates']) => ({
   type: SET_USER_LOCATION,
-  payload: user
+  payload: location
 })
 
-type UserAction = ReturnType<typeof locationSet>
+export const tokenSet = (tokens: UserState['tokens']) => ({
+  type: SET_USER_TOKENS,
+  payload: tokens
+})
+
+type UserAction = ReturnType<typeof locationSet> | ReturnType<typeof tokenSet>
 
 //상태(state) 타입정의
-type UserState = {
-  accessToken: string
-  refreshToken: string
+export type UserState = {
+  tokens: {
+    accessToken: string
+    refreshToken: string
+  }
   coordinates: { lat: number; lng: number }
 }
 
 const initialState: UserState = {
-  accessToken: '',
-  refreshToken: '',
+  tokens: {
+    accessToken: '',
+    refreshToken: ''
+  },
   coordinates: { lat: 0, lng: 0 }
-}
-
-export const login = (email: string, pw: string) => {
-  const url = BaseUrl + '/user/login/normal/'
-  axios
-    .post(url, {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: { email: email, password: pw }
-    })
-    .then(function (response) {
-      const { accessToken } = response.data.access_token
-      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
-      initialState.accessToken = response.data.access_token
-      initialState.refreshToken = response.data.refresh_token
-    })
-    .catch(function (error) {
-      alert('로그인정보를 확인해 주세요')
-    })
 }
 
 export default function userReducer(
@@ -51,7 +38,15 @@ export default function userReducer(
 ) {
   switch (action.type) {
     case SET_USER_LOCATION:
-      return (state = action.payload)
+      state.coordinates = action.payload as { lat: number; lng: number }
+      return state
+
+    case SET_USER_TOKENS:
+      return (state.tokens = action.payload as {
+        accessToken: string
+        refreshToken: string
+      })
+
     default:
       return state
   }

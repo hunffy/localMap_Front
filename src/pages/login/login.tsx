@@ -1,8 +1,12 @@
 import { ChangeEvent, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { tokenSet } from '../../reducers/userReducer'
+import { login } from '../../apis/loginApi'
 
 const Login = (): JSX.Element => {
   const [emailValue, setEmail] = useState('')
   const [pwValue, setPw] = useState('')
+  const dispatch = useDispatch()
 
   const saveUserEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value)
@@ -10,6 +14,22 @@ const Login = (): JSX.Element => {
 
   const saveUserPw = (event: ChangeEvent<HTMLInputElement>) => {
     setPw(event.target.value)
+  }
+
+  const doLogin = async () => {
+    const data = await login({
+      email: emailValue,
+      password: pwValue
+    })
+
+    console.log(data)
+
+    dispatch(
+      tokenSet({
+        accessToken: '',
+        refreshToken: ''
+      })
+    )
   }
 
   return (
@@ -31,7 +51,7 @@ const Login = (): JSX.Element => {
       />
       <p className="findPW">비밀번호 찾기</p>
       <div className="btnWrapper">
-        <div className="basicBtn">
+        <div className="basicBtn" onClick={doLogin}>
           <p>로그인</p>
         </div>
         <div className="basicBtn">
