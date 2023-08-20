@@ -2,11 +2,14 @@ import { ChangeEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { tokenSet } from '../../reducers/userReducer'
 import { login } from '../../apis/loginApi'
+import { loginDTO } from '../../types/login/loginTypes'
+import { useNavigate } from 'react-router-dom'
 
 const Login = (): JSX.Element => {
   const [emailValue, setEmail] = useState('')
   const [pwValue, setPw] = useState('')
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const saveUserEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value)
@@ -17,19 +20,19 @@ const Login = (): JSX.Element => {
   }
 
   const doLogin = async () => {
-    const data = await login({
+    const data = (await login({
       email: emailValue,
       password: pwValue
-    })
-
-    console.log(data)
+    })) as loginDTO
 
     dispatch(
       tokenSet({
-        accessToken: '',
-        refreshToken: ''
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token
       })
     )
+
+    navigate('/')
   }
 
   return (

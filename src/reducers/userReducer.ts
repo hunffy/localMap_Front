@@ -42,10 +42,11 @@ export default function userReducer(
       return state
 
     case SET_USER_TOKENS:
-      return (state.tokens = action.payload as {
-        accessToken: string
-        refreshToken: string
-      })
+      state.tokens = action.payload as {
+        accessToken: ''
+        refreshToken: ''
+      }
+      return state
 
     default:
       return state
