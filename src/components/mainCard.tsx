@@ -1,11 +1,16 @@
 import storeImg from '../assets/images/img_main_store.png'
 import starIcon from '../assets/images/ic_card_star.svg'
 import { storeInfoDTO } from '../types/main/mainTypes'
+import errorPhoto from '../assets/images/pt_errorPhoto.png'
 
 const MainCard = ({ params }: { params: storeInfoDTO }) => {
   return (
     <div className="cardWrapper">
-      <img className="contentImage" src={params.most_recent_photo_url} />
+      {params.most_recent_photo_url === null ? (
+        <img className="contentImage" src={errorPhoto} />
+      ) : (
+        <img className="contentImage" src={params.most_recent_photo_url} />
+      )}
       <div className="storeInfoWrapper">
         <img className="storeIcon" src={storeImg} />
         <div className="info">

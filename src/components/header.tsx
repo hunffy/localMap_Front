@@ -4,54 +4,66 @@ import userBtnIcon from '../assets/images/ic_header_userbtn.svg'
 import { useNavigate } from 'react-router-dom'
 import { RootState } from '../reducers'
 import { useSelector } from 'react-redux'
-import { getLocationInfo } from '../apis/mainApi'
-import { useQuery } from 'react-query'
-import { UserState } from '../reducers/userReducer'
 
 const Header = () => {
   const navigate = useNavigate()
+
+  const userAddress = useSelector(
+    (state: RootState) => state.userReducer.address
+  )
+  const accessToken = useSelector(
+    (state: RootState) => state.userReducer.tokens.accessToken
+  )
+  const refreshToken = useSelector(
+    (state: RootState) => state.userReducer.tokens.refreshToken
+  )
 
   const goLogin = () => {
     navigate('/login')
   }
 
-  const currentLocation = useSelector(
-    (state: RootState) => state.userReducer as UserState
-  )
-
-  const fetchAndSetLocationInfo = async () => {
-    const data = await getLocationInfo({
-      latitude: currentLocation.coordinates.lat,
-      longitude: currentLocation.coordinates.lng,
-      radius: 10
-    })
-    return data
+  const goMain = () => {
+    navigate('/')
   }
 
-  const { data, isLoading, error } = useQuery(
-    'location',
-    fetchAndSetLocationInfo
-  )
+  const goLogout = () => {
+    alert('logout')
+  }
+
+  const loginBTN = () => {
+    return (
+      <>
+        {accessToken === '' && refreshToken === '' ? (
+          <div className="headerButton" onClick={goLogin}>
+            <img src={userBtnIcon} />
+            <p>Login</p>
+          </div>
+        ) : (
+          <div className="headerButton" onClick={goLogout}>
+            <img src={userBtnIcon} />
+            <p>LogOut</p>
+          </div>
+        )}
+      </>
+    )
+  }
 
   return (
     <div className="headerWrapper">
-      <div className="logoWrapper">
+      <div className="logoWrapper" onClick={goMain}>
         <img src={logo} />
       </div>
       <div className="locationWrapper">
         <p>현재 위치: </p>
         <img src={locationIcon} />
-        {isLoading ? <p></p> : <p>{data[0].adm_nm}</p>}
+        <p>{userAddress}</p>
       </div>
       <div className="userWrapper">
         <div className="headerButton">
           <img src={userBtnIcon} />
           <p>MyPage</p>
         </div>
-        <div className="headerButton" onClick={goLogin}>
-          <img src={userBtnIcon} />
-          <p>Login</p>
-        </div>
+        {loginBTN()}
       </div>
     </div>
   )
