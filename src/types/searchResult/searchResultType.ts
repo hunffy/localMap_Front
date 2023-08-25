@@ -7,3 +7,13 @@ export interface getSearchInfoParams {
   limit: number
   offset: number
 }
+
+export interface getSearchEditorInfoParams {
+  category: string
+  sort_by: string
+  latitude: number | null
+  longitude: number | null
+  search: string
+  limit: number
+  offset: number
+}
