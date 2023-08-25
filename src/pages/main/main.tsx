@@ -1,6 +1,7 @@
 import MainCard from "../../components/mainCard";
 import MainLaggeCard from "../../components/mainLargeCard";
 import MainSearch from "../../components/mainSearch";
+import MainSeeMoreButton from "../../components/mainSeeMoreButton";
 import {
   getEditorProposal,
   getEventLocalStore,
@@ -215,9 +216,7 @@ const Main = (): JSX.Element => {
               })
             )}
           </div>
-          <div className="seeMoreButton">
-            <p>더보기</p>
-          </div>
+          <MainSeeMoreButton />
         </div>
         <div className="StoreWrapper">
           <p className="mainTitle">이벤트 중인 맛집</p>
@@ -230,9 +229,7 @@ const Main = (): JSX.Element => {
               })
             )}
           </div>
-          <div className="seeMoreButton">
-            <p>더보기</p>
-          </div>
+          <MainSeeMoreButton />
         </div>
         <div className="StoreWrapper">
           <p className="mainTitle">에디터 특집</p>
@@ -245,9 +242,7 @@ const Main = (): JSX.Element => {
               })
             )}
           </div>
-          <div className="seeMoreButton">
-            <p>더보기</p>
-          </div>
+          <MainSeeMoreButton />
         </div>
       </section>
     </div>
