@@ -1,141 +1,141 @@
-import locationIcon from '../../assets/images/ic_header_search.svg'
-import searchIcon from '../../assets/images/ic_main_search.svg'
-import MainCard from '../../components/mainCard'
-import MainLaggeCard from '../../components/mainLargeCard'
+import MainCard from "../../components/mainCard";
+import MainLaggeCard from "../../components/mainLargeCard";
+import MainSearch from "../../components/mainSearch";
+import MainSeeMoreButton from "../../components/mainSeeMoreButton";
 import {
   getEditorProposal,
   getEventLocalStore,
-  getNearLocalStore
-} from '../../apis/mainApi'
+  getNearLocalStore,
+} from "../../apis/mainApi";
 import {
   storeInfoDTO,
   mainApiVO,
-  editorProposalDTO
-} from '../../types/main/mainTypes'
-import { QueryKey, UseQueryOptions, useQueries } from 'react-query'
-import Spinner from '../../assets/images/spinner.gif'
-import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../reducers'
-import marker from '../../assets/images/ic_map_pin.png'
-import { ChangeEvent, useState } from 'react'
-import { UserState } from '../../reducers/userReducer'
-import { useNavigate } from 'react-router-dom'
+  editorProposalDTO,
+} from "../../types/main/mainTypes";
+import { QueryKey, UseQueryOptions, useQueries } from "react-query";
+import Spinner from "../../assets/images/spinner.gif";
+import { CustomOverlayMap, Map, MapMarker } from "react-kakao-maps-sdk";
+import { useSelector } from "react-redux";
+import { RootState } from "../../reducers";
+import marker from "../../assets/images/ic_map_pin.png";
+import { ChangeEvent, useState } from "react";
+import { UserState } from "../../reducers/userReducer";
+import { useNavigate } from "react-router-dom";
 
 const Main = (): JSX.Element => {
   const userState = useSelector(
     (state: RootState) => state.userReducer as UserState
-  )
-  const navigate = useNavigate()
-  const [isHover1, setHover1] = useState(false)
-  const [isHover2, setHover2] = useState(false)
-  const [isHover3, setHover3] = useState(false)
-  const [isHover4, setHover4] = useState(false)
+  );
+  const navigate = useNavigate();
+  const [isHover1, setHover1] = useState(false);
+  const [isHover2, setHover2] = useState(false);
+  const [isHover3, setHover3] = useState(false);
+  const [isHover4, setHover4] = useState(false);
 
-  const [searchValue, setSearch] = useState('')
+  const [searchValue, setSearch] = useState("");
 
   const saveSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value)
-  }
+    setSearch(event.target.value);
+  };
 
   const fetchAndSetNearStore = async () => {
     const data = await getNearLocalStore({
-      category: '',
-      sort_by: '',
+      category: "",
+      sort_by: "",
       latitude: userState.coordinates.lat,
       longitude: userState.coordinates.lng,
       limit: 4,
-      offset: 1
-    })
-    return data
-  }
+      offset: 1,
+    });
+    return data;
+  };
 
   const fetchAndSetEventStore = async () => {
     const data = await getEventLocalStore({
-      category: '',
-      sort_by: '',
+      category: "",
+      sort_by: "",
       latitude: userState.coordinates.lat,
       longitude: userState.coordinates.lng,
       limit: 4,
-      offset: 1
-    })
-    return data
-  }
+      offset: 1,
+    });
+    return data;
+  };
 
   const fetchAndSetEditorProposal = async () => {
     const data = await getEditorProposal({
       limit: 4,
-      offset: 0
-    })
-    return data
-  }
+      offset: 0,
+    });
+    return data;
+  };
 
   const queries: UseQueryOptions<mainApiVO, Error, mainApiVO, QueryKey>[] = [
     {
-      queryKey: ['near', 1],
+      queryKey: ["near", 1],
       queryFn: fetchAndSetNearStore,
-      staleTime: Infinity
+      staleTime: Infinity,
     },
     {
-      queryKey: ['event', 2],
+      queryKey: ["event", 2],
       queryFn: fetchAndSetEventStore,
-      staleTime: Infinity
+      staleTime: Infinity,
     },
     {
-      queryKey: ['editor', 3],
+      queryKey: ["editor", 3],
       queryFn: fetchAndSetEditorProposal,
-      staleTime: Infinity
-    }
-  ]
+      staleTime: Infinity,
+    },
+  ];
 
-  const results = useQueries(queries)
+  const results = useQueries(queries);
 
   const onMarkerHover = (index: number): void => {
     switch (index) {
       case 0:
-        setHover1(true)
-        break
+        setHover1(true);
+        break;
       case 1:
-        setHover2(true)
-        break
+        setHover2(true);
+        break;
       case 2:
-        setHover3(true)
-        break
+        setHover3(true);
+        break;
       case 3:
-        setHover4(true)
-        break
+        setHover4(true);
+        break;
     }
-  }
+  };
 
   const onMarkerHoverOut = (index: number) => {
     switch (index) {
       case 0:
-        setHover1(false)
-        break
+        setHover1(false);
+        break;
       case 1:
-        setHover2(false)
-        break
+        setHover2(false);
+        break;
       case 2:
-        setHover3(false)
-        break
+        setHover3(false);
+        break;
       case 3:
-        setHover4(false)
-        break
+        setHover4(false);
+        break;
     }
-  }
+  };
 
   const makeHoverState = (index: number) => {
     switch (index) {
       case 0:
-        return isHover1
+        return isHover1;
       case 1:
-        return isHover2
+        return isHover2;
       case 2:
-        return isHover3
+        return isHover3;
       case 3:
-        return isHover4
+        return isHover4;
     }
-  }
+  };
 
   const makeMapMarker = (item: storeInfoDTO, index: number) => {
     return (
@@ -143,12 +143,12 @@ const Main = (): JSX.Element => {
         <MapMarker
           position={{
             lat: item.latitude,
-            lng: item.longitude
+            lng: item.longitude,
           }}
           image={{
             src: marker,
             size: { width: 45, height: 40 },
-            options: { offset: new kakao.maps.Point(20, 32) }
+            options: { offset: new kakao.maps.Point(20, 32) },
           }}
           title={item.name}
           onMouseOver={() => onMarkerHover(index)}
@@ -159,7 +159,7 @@ const Main = (): JSX.Element => {
           <CustomOverlayMap
             position={{
               lat: item.latitude,
-              lng: item.longitude
+              lng: item.longitude,
             }}
             yAnchor={0.8}
             xAnchor={0.1}
@@ -174,12 +174,12 @@ const Main = (): JSX.Element => {
           <div />
         )}
       </div>
-    )
-  }
+    );
+  };
 
   const goSearchResult = () => {
-    navigate('/searchResult' + `/${searchValue}`)
-  }
+    navigate("/searchResult" + `/${searchValue}`);
+  };
 
   return (
     <div className="mainWrapper">
@@ -187,28 +187,19 @@ const Main = (): JSX.Element => {
         <div className="leftWrapper">
           <p className="titleSlogan">원하는 슬로건</p>
           <p className="subTitleSlogan">원하는 부제</p>
-          <div className="searchWrapper">
-            <div className="search">
-              <img src={locationIcon} />
-              <input type="text" value={searchValue} onChange={saveSearch} />
-            </div>
-            <div className="searchButton" onClick={goSearchResult}>
-              <img src={searchIcon} />
-              <p>검색</p>
-            </div>
-          </div>
+          <MainSearch />
         </div>
         <div className="rightWrapper">
           <Map
             center={{
               lat: userState.coordinates.lat,
-              lng: userState.coordinates.lng
+              lng: userState.coordinates.lng,
             }} // 지도의 중심 좌표
-            style={{ width: '51rem', height: '41.3rem' }}
+            style={{ width: "51rem", height: "41.3rem" }}
             level={3}
           >
             {results[0].data?.results.map((item, index) => {
-              return makeMapMarker(item as storeInfoDTO, index)
+              return makeMapMarker(item as storeInfoDTO, index);
             })}
           </Map>
         </div>
@@ -221,13 +212,11 @@ const Main = (): JSX.Element => {
               <img src={Spinner} alt="로딩중" width="50%" />
             ) : (
               results[0].data?.results.map((item) => {
-                return <MainCard params={item as storeInfoDTO} />
+                return <MainCard params={item as storeInfoDTO} />;
               })
             )}
           </div>
-          <div className="seeMoreButton">
-            <p>더보기</p>
-          </div>
+          <MainSeeMoreButton />
         </div>
         <div className="StoreWrapper">
           <p className="mainTitle">이벤트 중인 맛집</p>
@@ -236,13 +225,11 @@ const Main = (): JSX.Element => {
               <img src={Spinner} alt="로딩중" width="50%" />
             ) : (
               results[1].data?.results.map((item) => {
-                return <MainCard params={item as storeInfoDTO} />
+                return <MainCard params={item as storeInfoDTO} />;
               })
             )}
           </div>
-          <div className="seeMoreButton">
-            <p>더보기</p>
-          </div>
+          <MainSeeMoreButton />
         </div>
         <div className="StoreWrapper">
           <p className="mainTitle">에디터 특집</p>
@@ -251,17 +238,15 @@ const Main = (): JSX.Element => {
               <img src={Spinner} alt="로딩중" width="50%" />
             ) : (
               results[2].data?.results.map((item) => {
-                return <MainLaggeCard params={item as editorProposalDTO} />
+                return <MainLaggeCard params={item as editorProposalDTO} />;
               })
             )}
           </div>
-          <div className="seeMoreButton">
-            <p>더보기</p>
-          </div>
+          <MainSeeMoreButton />
         </div>
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default Main
+export default Main;
