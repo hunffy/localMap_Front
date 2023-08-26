@@ -1,43 +1,44 @@
-import { useParams } from 'react-router-dom'
-import ic_menu from '../../assets/images/ic _menu_.svg'
-import ic_plus from '../../assets/images/ic_plus.svg'
-import { getSearchInfo } from '../../apis/searchApi'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../reducers'
-import { UserState } from '../../reducers/userReducer'
-import { useQuery } from 'react-query'
-import MainCard from '../../components/mainCard'
-import { storeInfoDTO } from '../../types/main/mainTypes'
-import { useState } from 'react'
-import Loading from '../../components/loading'
+import ic_menu from "../../assets/images/ic _menu_.svg";
+import ic_plus from "../../assets/images/ic_plus.svg";
+import MainCard from "../../components/mainCard";
+import Loading from "../../components/loading";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
+import { getSearchInfo } from "../../apis/searchApi";
+import { storeInfoDTO } from "../../types/main/mainTypes";
+import { RootState } from "../../reducers";
+import { UserState } from "../../reducers/userReducer";
+import SearchResultRightWrapper from "../../components/searchResultRightWrapper";
 
 const SearchResult = () => {
-  const params = useParams()
+  const params = useParams();
   const userState = useSelector(
     (state: RootState) => state.userReducer as UserState
-  )
-  const [offset, setOffset] = useState(0)
+  );
+  const [offset, setOffset] = useState(0);
   const showFilter = () => {
-    alert('aa')
-  }
+    alert("aa");
+  };
 
   const fetchAndSetSearchInfo = async () => {
     const data = await getSearchInfo({
-      category: '',
-      sort_by: '',
+      category: "",
+      sort_by: "",
       latitude: userState.coordinates.lat,
       longitude: userState.coordinates.lng,
       search: params.search!,
       limit: 8,
-      offset: offset
-    })
-    return data
-  }
+      offset: offset,
+    });
+    return data;
+  };
 
   const { data, isLoading, error, refetch } = useQuery(
-    'location',
+    "location",
     fetchAndSetSearchInfo
-  )
+  );
 
   return (
     <>
@@ -58,16 +59,16 @@ const SearchResult = () => {
           <div className="contentWrapper">
             <div className="leftWrapper">
               {data?.results.map((item: storeInfoDTO) => {
-                return <MainCard params={item} />
+                return <MainCard params={item} />;
               })}
             </div>
-            <div className="rigthWrapper"></div>
+            <SearchResultRightWrapper />
           </div>
           <div className="pagiNationWrapper"></div>
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default SearchResult
+export default SearchResult;
