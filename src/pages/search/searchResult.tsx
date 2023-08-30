@@ -11,16 +11,15 @@ import { storeInfoDTO } from "../../types/main/mainTypes";
 import { RootState } from "../../reducers";
 import { UserState } from "../../reducers/userReducer";
 import SearchResultRightWrapper from "../../components/searchResultRightWrapper";
-
+import { useDispatch } from "react-redux";
+import { set } from "../../reducers/modalReducer";
+import Filter from "../modal/filter";
 const SearchResult = () => {
   const params = useParams();
   const userState = useSelector(
     (state: RootState) => state.userReducer as UserState
   );
   const [offset, setOffset] = useState(0);
-  const showFilter = () => {
-    alert("aa");
-  };
 
   const fetchAndSetSearchInfo = async () => {
     const data = await getSearchInfo({
@@ -40,6 +39,11 @@ const SearchResult = () => {
     fetchAndSetSearchInfo
   );
 
+  const dispatch = useDispatch();
+
+  const showFilter = () => {
+    dispatch(set({ state: "필터모달", cashe1: "캐시1", cashe2: "캐시2" }));
+  };
   return (
     <>
       {isLoading ? (
@@ -49,6 +53,7 @@ const SearchResult = () => {
           <div className="srTitleWrapper">
             <p>{params.search} 맛집 인기순</p>
             <img src={ic_menu} onClick={showFilter} />
+            <Filter />
           </div>
           <div className="regWrapper">
             <div className="titleWrapper">

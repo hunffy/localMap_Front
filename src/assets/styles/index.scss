@@ -1,12 +1,25 @@
-@import './common.scss';
+@import "./common.scss";
 
 //components
-@import './components/header.scss';
-@import '../styles/components/mainCard.scss';
-@import '../styles/components/mainLargeCard.scss';
-@import '../styles//components/loading.scss';
+@import "./components/header.scss";
+@import "../styles/components/mainCard.scss";
+@import "../styles/components/mainLargeCard.scss";
+@import "../styles//components/loading.scss";
+
+//modal
+@import "./modal/column_delete.scss";
+@import "./modal/event_delete.scss";
+@import "./modal/filter.scss";
+@import "./modal/map.scss";
+@import "./modal/notice_delete.scss";
+@import "./modal/restaurant_add.scss";
+@import "./modal/restaurant_delete.scss";
+@import "./modal/review_delete.scss";
+@import "./modal/user_nick_check.scss";
+@import "./modal/user_resign.scss";
+@import "./modal/m_choose_food.scss";
 
 //pages
-@import './pages/main.scss';
-@import './pages/login.scss';
-@import './pages/searchResult.scss';
+@import "./pages/main.scss";
+@import "./pages/login.scss";
+@import "./pages/searchResult.scss";

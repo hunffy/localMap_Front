@@ -1,15 +1,12 @@
 import { QueryKey, UseQueryOptions, useQueries } from "react-query";
-import { mainApiVO } from "../types/main/mainTypes";
 import { getNearLocalStore } from "../apis/mainApi";
 import { RootState } from "../reducers";
 import { UserState } from "../reducers/userReducer";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { getEditorProposal } from "../apis/mainApi";
-import { getEventLocalStore } from "../apis/mainApi";
+import { mainApiVO, editorProposalDTO } from "../types/main/mainTypes";
+import { getEditorProposal, getEventLocalStore } from "../apis/mainApi";
 import Spinner from "../assets/images/spinner.gif";
 import MainLaggeCard from "./mainLargeCard";
-import { editorProposalDTO } from "../types/main/mainTypes";
-import MainSeeMoreButton from "./mainSeeMoreButton";
 const SearchResultRightWrapper = () => {
   const userState = useSelector(
     (state: RootState) => state.userReducer as UserState
@@ -76,7 +73,6 @@ const SearchResultRightWrapper = () => {
           })
         )}
       </div>
-      <MainSeeMoreButton />
     </div>
   );
 };

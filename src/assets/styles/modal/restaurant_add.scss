@@ -1,0 +1,58 @@
+.res_modal_container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  .restaurant_add {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 600px;
+    height: 500px;
+    position: relative;
+    z-index: 10;
+    border: 3px solid #fae6b1;
+    border-radius: 10px;
+    background-color: white;
+    > span {
+      color: black;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+    .res_search {
+      width: 100%;
+      > input {
+        width: 50%;
+        height: 50px;
+        border-radius: 8px;
+        font-size: 15px;
+        background-image: url(../../images/modal_search.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 40px 40px;
+        background-position: 250px center;
+        padding-left: 20px;
+        padding-top: 10px;
+      }
+    }
+    .res_search_btn {
+      width: 100%;
+      margin-top: 150px;
+      > button {
+        width: 30%;
+        background-color: #ffa101;
+        border-radius: 10px;
+        color: white;
+        cursor: pointer;
+      }
+    }
+  }
+}

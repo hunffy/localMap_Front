@@ -1,0 +1,57 @@
+.e_d_modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  .event_delete {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 600px;
+    height: 500px;
+    position: relative;
+    z-index: 10;
+    border: 3px solid #fae6b1;
+    border-radius: 10px;
+    background-color: white;
+    .event_delete_tit {
+      width: 100%;
+      height: 60%;
+      margin-top: 50px;
+      > span {
+        font-weight: bold;
+        font-size: 2.5rem;
+      }
+      > p {
+        font-size: 2rem;
+        margin-top: 80px;
+      }
+    }
+    .event_delete_btn_wraps {
+      display: flex;
+      flex-direction: row;
+      .e_delete_btn {
+        width: 100px;
+        height: 50px;
+        background-color: #ffa101;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .e_cancle_btn {
+        width: 100px;
+        height: 50px;
+        background-color: #fae6b1;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+    }
+  }
+}

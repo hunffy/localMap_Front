@@ -1,39 +1,39 @@
-import { ChangeEvent, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { tokenSet } from '../../reducers/userReducer'
-import { login } from '../../apis/loginApi'
-import { loginDTO } from '../../types/login/loginTypes'
-import { useNavigate } from 'react-router-dom'
+import { ChangeEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { tokenSet } from "../../reducers/userReducer";
+import { login } from "../../apis/loginApi";
+import { loginDTO } from "../../types/login/loginTypes";
+import { useNavigate } from "react-router-dom";
 
 const Login = (): JSX.Element => {
-  const [emailValue, setEmail] = useState('')
-  const [pwValue, setPw] = useState('')
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const [emailValue, setEmail] = useState("");
+  const [pwValue, setPw] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const saveUserEmail = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value)
-  }
+    setEmail(event.target.value);
+  };
 
   const saveUserPw = (event: ChangeEvent<HTMLInputElement>) => {
-    setPw(event.target.value)
-  }
+    setPw(event.target.value);
+  };
 
   const doLogin = async () => {
     const data = (await login({
       email: emailValue,
-      password: pwValue
-    })) as loginDTO
+      password: pwValue,
+    })) as loginDTO;
 
     dispatch(
       tokenSet({
         accessToken: data.access_token,
-        refreshToken: data.refresh_token
+        refreshToken: data.refresh_token,
       })
-    )
+    );
 
-    navigate('/')
-  }
+    navigate("/");
+  };
 
   return (
     <div className="loginWrapper">
@@ -78,7 +78,7 @@ const Login = (): JSX.Element => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

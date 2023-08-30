@@ -1,0 +1,118 @@
+.m_choose_food {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  > p {
+    width: 100%;
+    text-align: left;
+    margin-left: 100px;
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 30px;
+  }
+  .m_food_wraps {
+    text-align: center;
+    margin-top: 10px;
+
+    .m_food_list {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 60px;
+
+      .m_food1_button {
+        width: 60px;
+        height: 60px;
+        background-image: url("https://cdn-icons-png.flaticon.com/128/3075/3075935.png");
+        background-size: cover;
+        border: none;
+        background-repeat: no-repeat;
+        background-color: white;
+        margin-right: 80px;
+      }
+
+      .m_food2_button {
+        width: 60px;
+        height: 60px;
+        background-image: url("https://cdn-icons-png.flaticon.com/128/1623/1623712.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: white;
+        border: none;
+        margin-right: 80px;
+      }
+
+      .m_food3_button {
+        width: 60px;
+        height: 60px;
+        background-image: url("https://cdn-icons-png.flaticon.com/128/2515/2515150.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: white;
+        border: none;
+        margin-right: 80px;
+      }
+
+      .m_food4_button {
+        width: 60px;
+        height: 60px;
+        background-image: url("https://cdn-icons-png.flaticon.com/128/3823/3823071.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: white;
+        border: none;
+      }
+    }
+    .m_food_list2 {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: center;
+      .m_food5_button {
+        width: 60px;
+        height: 60px;
+        background-image: url("https://cdn-icons-png.flaticon.com/128/541/541839.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: white;
+        border: none;
+        margin-right: 80px;
+      }
+
+      .m_food6_button {
+        width: 60px;
+        height: 60px;
+        background-image: url("https://cdn-icons-png.flaticon.com/128/3280/3280002.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: white;
+        border: none;
+        margin-right: 80px;
+      }
+
+      .m_food7_button {
+        width: 60px;
+        height: 60px;
+        background-image: url("https://cdn-icons-png.flaticon.com/128/782/782828.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: white;
+        border: none;
+        margin-right: 80px;
+      }
+
+      .m_food8_button {
+        width: 60px;
+        height: 60px;
+        background-image: url("https://cdn-icons-png.flaticon.com/128/3071/3071050.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: white;
+        border: none;
+      }
+    }
+  }
+}
+/*모바일 설정*/
