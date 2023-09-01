@@ -4,16 +4,24 @@ import MainCard from "../../components/mainCard";
 import Loading from "../../components/loading";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { useQuery } from "react-query";
+import { QueryKey, UseQueryOptions, useQueries, useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { getSearchInfo } from "../../apis/searchApi";
-import { storeInfoDTO } from "../../types/main/mainTypes";
+import {
+  editorProposalDTO,
+  mainApiVO,
+  storeInfoDTO,
+} from "../../types/main/mainTypes";
 import { RootState } from "../../reducers";
 import { UserState } from "../../reducers/userReducer";
-import SearchResultRightWrapper from "../../components/searchResultRightWrapper";
+import StoreCard from "../../components/storecard";
 import { useDispatch } from "react-redux";
 import { set } from "../../reducers/modalReducer";
 import Filter from "../modal/filter";
+import { getEditorProposal } from "../../apis/mainApi";
+import { CustomOverlayMap, Map, MapMarker } from "react-kakao-maps-sdk";
+import Spinner from "../../assets/images/spinner.gif";
+import marker from "../../assets/images/ic_map_pin.png";
 const SearchResult = () => {
   const params = useParams();
   const userState = useSelector(
@@ -38,6 +46,23 @@ const SearchResult = () => {
     "location",
     fetchAndSetSearchInfo
   );
+  const fetchAndSetEditorProposal = async () => {
+    const data = await getEditorProposal({
+      limit: 5,
+      offset: 0,
+    });
+    return data;
+  };
+
+  const queries: UseQueryOptions<mainApiVO, Error, mainApiVO, QueryKey>[] = [
+    {
+      queryKey: ["editor", 1],
+      queryFn: fetchAndSetEditorProposal,
+      staleTime: Infinity,
+    },
+  ];
+
+  const results = useQueries(queries);
 
   const dispatch = useDispatch();
 
@@ -67,9 +92,71 @@ const SearchResult = () => {
                 return <MainCard params={item} />;
               })}
             </div>
-            <SearchResultRightWrapper />
+            <div className="rigthWrapper">
+              <Map
+                center={{
+                  lat: userState.coordinates.lat,
+                  lng: userState.coordinates.lng,
+                }} // 지도의 중심 좌표
+                style={{ width: "51rem", height: "41.3rem" }}
+                level={3}
+              >
+                {data?.results.map((item: storeInfoDTO) => {
+                  return (
+                    <div>
+                      <MapMarker
+                        position={{
+                          lat: item.latitude,
+                          lng: item.longitude,
+                        }}
+                        image={{
+                          src: marker,
+                          size: { width: 45, height: 40 },
+                          options: { offset: new kakao.maps.Point(20, 32) },
+                        }}
+                        title={item.name}
+                        zIndex={10}
+                      />
+                      <CustomOverlayMap
+                        position={{
+                          lat: item.latitude,
+                          lng: item.longitude,
+                        }}
+                        yAnchor={0.8}
+                        xAnchor={0.1}
+                      >
+                        <div className="overlayMarker">
+                          <div className="titleWrapper">
+                            <p>{item.name}</p>
+                          </div>
+                        </div>
+                      </CustomOverlayMap>
+                    </div>
+                  );
+                })}
+              </Map>
+              <div className="editCardList">
+                {results[0].isLoading ? (
+                  <img src={Spinner} alt="로딩중" width="50%" />
+                ) : (
+                  results[0].data?.results.map((item) => {
+                    return <StoreCard params={item as editorProposalDTO} />;
+                  })
+                )}
+              </div>
+            </div>
           </div>
-          <div className="pagiNationWrapper"></div>
+          <div className="pagiNationWrapper">
+            <div className="pageBtn selected">
+              <p>1</p>
+            </div>
+            <div className="pageBtn">
+              <p>2</p>
+            </div>
+            <div className="pageBtn">
+              <p>3</p>
+            </div>
+          </div>
         </div>
       )}
     </>
