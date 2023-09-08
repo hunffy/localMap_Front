@@ -38,6 +38,10 @@ const Main = (): JSX.Element => {
     setSearch(event.target.value);
   };
 
+  const goEditorList = () => {
+    navigate("/editorlist");
+  };
+
   const fetchAndSetNearStore = async () => {
     const data = await getNearLocalStore({
       category: "",

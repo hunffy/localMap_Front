@@ -22,6 +22,7 @@ import { getEditorProposal } from "../../apis/mainApi";
 import { CustomOverlayMap, Map, MapMarker } from "react-kakao-maps-sdk";
 import Spinner from "../../assets/images/spinner.gif";
 import marker from "../../assets/images/ic_map_pin.png";
+import PagiNation from "../../components/pagiNation";
 const SearchResult = () => {
   const params = useParams();
   const userState = useSelector(
@@ -29,6 +30,7 @@ const SearchResult = () => {
   );
   const [offset, setOffset] = useState(0);
 
+  //검색결과 조회설정
   const fetchAndSetSearchInfo = async () => {
     const data = await getSearchInfo({
       category: "",
@@ -42,10 +44,13 @@ const SearchResult = () => {
     return data;
   };
 
+  //검색결과 가져오기
   const { data, isLoading, error, refetch } = useQuery(
     "location",
     fetchAndSetSearchInfo
   );
+
+  //에디터 목록 설정
   const fetchAndSetEditorProposal = async () => {
     const data = await getEditorProposal({
       limit: 5,
@@ -146,17 +151,7 @@ const SearchResult = () => {
               </div>
             </div>
           </div>
-          <div className="pagiNationWrapper">
-            <div className="pageBtn selected">
-              <p>1</p>
-            </div>
-            <div className="pageBtn">
-              <p>2</p>
-            </div>
-            <div className="pageBtn">
-              <p>3</p>
-            </div>
-          </div>
+          <PagiNation />
         </div>
       )}
     </>

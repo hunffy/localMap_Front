@@ -45,6 +45,8 @@ export const getEditorProposal = async (params: getEditorProposalParams) => {
   const url = BaseUrl + "/editor/list";
   try {
     const response = await axios.get(url, { params });
+    const totalPages = response.data.totalPages;
+    console.log(totalPages);
     return response.data;
   } catch (error) {
     alert("오류를 확인해주세요");
