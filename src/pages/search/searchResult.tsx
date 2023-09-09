@@ -23,6 +23,7 @@ import { CustomOverlayMap, Map, MapMarker } from "react-kakao-maps-sdk";
 import Spinner from "../../assets/images/spinner.gif";
 import marker from "../../assets/images/ic_map_pin.png";
 import PagiNation from "../../components/pagiNation";
+import EditorCard from "../../components/editorCard";
 const SearchResult = () => {
   const params = useParams();
   const userState = useSelector(
@@ -49,16 +50,19 @@ const SearchResult = () => {
     "location",
     fetchAndSetSearchInfo
   );
-
-  //에디터 목록 설정
+  // fetchAndSetEditorProposal 함수 수정
   const fetchAndSetEditorProposal = async () => {
+    const offset = (currentPage - 1) * postsPerPage;
+
     const data = await getEditorProposal({
-      limit: 5,
-      offset: 0,
+      limit: postsPerPage,
+      offset: offset,
     });
+
     return data;
   };
 
+  //조회조건을 가져와 조회한 후 값 가져오기
   const queries: UseQueryOptions<mainApiVO, Error, mainApiVO, QueryKey>[] = [
     {
       queryKey: ["editor", 1],
@@ -66,8 +70,32 @@ const SearchResult = () => {
       staleTime: Infinity,
     },
   ];
-
+  //useQueries hook으로 해당 값들 가져옴.
   const results = useQueries(queries);
+
+  //페이지 네이션
+
+  //총 페이지 수
+  const totalPages = results[0].data?.totalPages;
+
+  //페이지 당 게시물 수
+  const [postsPerPage, setPostsPerPage] = useState(5);
+
+  //현재 페이지 번호
+  const [currentPage, setCurrentPage] = useState(1);
+
+  //현재 페이지의 첫번째 게시물 인덱스번호
+  const p_offset = (currentPage - 1) * postsPerPage;
+
+  const currentPosts = results[0].data?.results
+    .slice(p_offset, p_offset + postsPerPage)
+    .map((item, index) => (
+      <EditorCard key={index} params={item as editorProposalDTO} />
+    ));
+
+  function setPage(page: number) {
+    setCurrentPage(page);
+  }
 
   const dispatch = useDispatch();
 
@@ -151,7 +179,13 @@ const SearchResult = () => {
               </div>
             </div>
           </div>
-          <PagiNation />
+          <PagiNation
+            totalPosts={results[0].data?.results.length}
+            postsPerPage={postsPerPage}
+            currentPage={currentPage}
+            onClickPage={setPage}
+            totalPages={totalPages}
+          />
         </div>
       )}
     </>

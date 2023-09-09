@@ -1,15 +1,28 @@
-const PagiNation = () => {
+import { PagiNationProps } from "../types/pagination/paginationType";
+
+const PagiNation = ({
+  totalPosts,
+  postsPerPage,
+  currentPage,
+  onClickPage,
+  totalPages,
+}: PagiNationProps) => {
+  const numOfPages = totalPages;
+
+  let totalButtons = new Array(numOfPages).fill(null);
+  totalButtons = totalButtons.map((_, index) => index + 1);
+
   return (
     <div className="pagiNationWrapper">
-      <div className="pageBtn selected">
-        <p>1</p>
-      </div>
-      <div className="pageBtn">
-        <p>2</p>
-      </div>
-      <div className="pageBtn">
-        <p>3</p>
-      </div>
+      {totalButtons.map((pageNumber) => (
+        <button
+          className="pagebtn"
+          key={pageNumber}
+          onClick={() => onClickPage(pageNumber)}
+        >
+          {pageNumber}
+        </button>
+      ))}
     </div>
   );
 };
