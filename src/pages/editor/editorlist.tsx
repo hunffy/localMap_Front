@@ -20,14 +20,13 @@ const EditorList = (): JSX.Element => {
   };
 
   // 페이지 네이션
-
   //페이지 당 게시물 수
   const [postsPerPage, setPostsPerPage] = useState(5);
 
   //현재 페이지 번호
   const [currentPage, setCurrentPage] = useState(1);
 
-  //조회조건을 가져와 조회한 후 값 가져오기
+  //현재페이지(currentPage)가 변경될때마다 서버에서 데이터값을 가져오기위한 설정
   const queries: UseQueryOptions<mainApiVO, Error, mainApiVO, QueryKey>[] = [
     {
       queryKey: ["editor", currentPage],
@@ -36,14 +35,11 @@ const EditorList = (): JSX.Element => {
     },
   ];
 
-  //useQueries hook으로 해당 값들 가져옴.
+  //useQueries hook(여러개의 usequery사용할수있다) 으로 queries설정값 적용
   const results = useQueries(queries);
 
   //총 페이지수
   const totalPages = results[0].data?.totalPages;
-
-  //현재 페이지의 첫번째 게시물 인덱스번호
-  const p_offset = (currentPage - 1) * postsPerPage;
 
   const currentPosts = results[0].data?.results.map((item, index) => (
     <EditorCard key={index} params={item as editorProposalDTO} />

@@ -29,17 +29,17 @@ const SearchResult = () => {
   const userState = useSelector(
     (state: RootState) => state.userReducer as UserState
   );
-  const [offset, setOffset] = useState(0);
 
   //검색결과 조회설정
   const fetchAndSetSearchInfo = async () => {
+    const offset = (currentPage - 1) * postsPerPage;
     const data = await getSearchInfo({
       category: "",
       sort_by: "",
       latitude: userState.coordinates.lat,
       longitude: userState.coordinates.lng,
       search: params.search!,
-      limit: 8,
+      limit: postsPerPage,
       offset: offset,
     });
     return data;
@@ -62,12 +62,20 @@ const SearchResult = () => {
     return data;
   };
 
+  //현재 페이지 번호
+  const [currentPage, setCurrentPage] = useState(1);
+
   //조회조건을 가져와 조회한 후 값 가져오기
   const queries: UseQueryOptions<mainApiVO, Error, mainApiVO, QueryKey>[] = [
     {
-      queryKey: ["editor", 1],
+      queryKey: ["editor", currentPage],
       queryFn: fetchAndSetEditorProposal,
-      staleTime: Infinity,
+      staleTime: 0,
+    },
+    {
+      queryKey: ["search", currentPage],
+      queryFn: fetchAndSetSearchInfo,
+      staleTime: 0,
     },
   ];
   //useQueries hook으로 해당 값들 가져옴.
@@ -76,22 +84,17 @@ const SearchResult = () => {
   //페이지 네이션
 
   //총 페이지 수
-  const totalPages = results[0].data?.totalPages;
+  const totalPages = results[1]?.data?.totalPages;
 
   //페이지 당 게시물 수
-  const [postsPerPage, setPostsPerPage] = useState(5);
-
-  //현재 페이지 번호
-  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(6);
 
   //현재 페이지의 첫번째 게시물 인덱스번호
   const p_offset = (currentPage - 1) * postsPerPage;
 
-  const currentPosts = results[0].data?.results
-    .slice(p_offset, p_offset + postsPerPage)
-    .map((item, index) => (
-      <EditorCard key={index} params={item as editorProposalDTO} />
-    ));
+  const currentPosts = results[1].data?.results.map((item, index) => (
+    <MainCard key={index} params={item as storeInfoDTO} />
+  ));
 
   function setPage(page: number) {
     setCurrentPage(page);
@@ -120,11 +123,7 @@ const SearchResult = () => {
             </div>
           </div>
           <div className="contentWrapper">
-            <div className="leftWrapper">
-              {data?.results.map((item: storeInfoDTO) => {
-                return <MainCard params={item} />;
-              })}
-            </div>
+            <div className="leftWrapper">{currentPosts}</div>
             <div className="rigthWrapper">
               <Map
                 center={{
@@ -180,7 +179,7 @@ const SearchResult = () => {
             </div>
           </div>
           <PagiNation
-            totalPosts={results[0].data?.results.length}
+            totalPosts={results[1].data?.results.length}
             postsPerPage={postsPerPage}
             currentPage={currentPage}
             onClickPage={setPage}
