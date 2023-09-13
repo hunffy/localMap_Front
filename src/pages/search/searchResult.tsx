@@ -32,7 +32,7 @@ const SearchResult = () => {
 
   //검색결과 조회설정
   const fetchAndSetSearchInfo = async () => {
-    const offset = (currentPage - 1) * postsPerPage;
+    const offset = (currentPage - 1) * postsPerPage + 1;
     const data = await getSearchInfo({
       category: "",
       sort_by: "",

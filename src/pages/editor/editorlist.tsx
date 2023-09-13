@@ -9,7 +9,7 @@ const EditorList = (): JSX.Element => {
   //에디터 리스트 비동기통신으로 조회조건 설정
   // fetchAndSetEditorProposal 함수 수정
   const fetchAndSetEditorProposal = async () => {
-    const offset = (currentPage - 1) * postsPerPage;
+    const offset = (currentPage - 1) * postsPerPage + 1;
 
     const data = await getEditorProposal({
       limit: postsPerPage,
