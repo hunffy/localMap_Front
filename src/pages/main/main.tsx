@@ -1,5 +1,5 @@
 import MainCard from "../../components/mainCard";
-import MainLaggeCard from "../../components/mainLargeCard";
+import MainLargeCard from "../../components/mainLargeCard";
 import MainSearch from "../../components/mainSearch";
 import MainSeeMoreButton from "../../components/mainSeeMoreButton";
 import {
@@ -36,6 +36,10 @@ const Main = (): JSX.Element => {
 
   const saveSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
+  };
+
+  const goEditorList = () => {
+    navigate("/editorlist");
   };
 
   const fetchAndSetNearStore = async () => {
@@ -238,7 +242,7 @@ const Main = (): JSX.Element => {
               <img src={Spinner} alt="로딩중" width="50%" />
             ) : (
               results[2].data?.results.map((item) => {
-                return <MainLaggeCard params={item as editorProposalDTO} />;
+                return <MainLargeCard params={item as editorProposalDTO} />;
               })
             )}
           </div>

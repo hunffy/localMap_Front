@@ -1,7 +1,7 @@
-import '../assets/styles/components/mainLargeCard.scss'
-import { editorProposalDTO } from '../types/main/mainTypes'
-
-const MainLaggeCard = ({ params }: { params: editorProposalDTO }) => {
+import "../assets/styles/components/mainLargeCard.scss";
+import { editorProposalDTO } from "../types/main/mainTypes";
+import { useNavigate } from "react-router-dom";
+const MainLargeCard = ({ params }: { params: editorProposalDTO }) => {
   return (
     <div className="largeCardWrapper">
       <section className="leftWrapper">
@@ -17,6 +17,6 @@ const MainLaggeCard = ({ params }: { params: editorProposalDTO }) => {
         <img src={params.url} />
       </section>
     </div>
-  )
-}
-export default MainLaggeCard
+  );
+};
+export default MainLargeCard;

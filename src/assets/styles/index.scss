@@ -1,6 +1,7 @@
-@import './common.scss';
+@import "./common.scss";
 
 //components
+<<<<<<< HEAD
 @import './components/header.scss';
 @import '../styles/components/mainCard.scss';
 @import '../styles/components/mainLargeCard.scss';
@@ -8,7 +9,31 @@
 @import '../styles/components/map.scss';
 @import '../styles/components/mainSearch.scss';
 @import '../styles/components/mainSeeMoreButton.scss';
+=======
+@import "./components/header.scss";
+@import "../styles/components/mainCard.scss";
+@import "../styles/components/mainLargeCard.scss";
+@import "../styles/components/loading.scss";
+@import "../styles/components/storeCard.scss";
+@import "../styles/components/editorcard.scss";
+@import "../styles/components/pagiNation.scss";
+
+//modal
+@import "./modal/column_delete.scss";
+@import "./modal/event_delete.scss";
+@import "./modal/filter.scss";
+@import "./modal/map.scss";
+@import "./modal/notice_delete.scss";
+@import "./modal/restaurant_add.scss";
+@import "./modal/restaurant_delete.scss";
+@import "./modal/review_delete.scss";
+@import "./modal/user_nick_check.scss";
+@import "./modal/user_resign.scss";
+@import "./modal/m_choose_food.scss";
+
+>>>>>>> upstearm/ksh/searchComp
 //pages
-@import './pages/main.scss';
-@import './pages/login.scss';
-@import './pages/searchResult.scss';
+@import "./pages/main.scss";
+@import "./pages/login.scss";
+@import "./pages/searchResult.scss";
+@import "./pages/editorlist.scss";
